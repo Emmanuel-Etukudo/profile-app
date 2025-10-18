@@ -3,6 +3,8 @@ import React from "react";
 import ContactType from "./ContactType";
 import { Ionicons } from "@expo/vector-icons";
 import ConnectIcon from "../icons/ConnectIcon";
+import { useTheme } from "@/context/ThemeContext";
+import ConnectIconNight from "../icons/ConnectIconNight";
 
 const contactTypes: {
   text: string;
@@ -30,10 +32,15 @@ const contactTypes: {
 ];
 
 const Contact = () => {
+  const { effectiveTheme } = useTheme();
   return (
     <View style={styles.container}>
       <View style={{ alignItems: "center", marginBottom: 16 }}>
-        <ConnectIcon width={100} height={100} />
+        {effectiveTheme === "dark" ? (
+          <ConnectIconNight width={100} height={100} />
+        ) : (
+          <ConnectIcon width={100} height={100} />
+        )}
       </View>
       <Text>
         Have a project in mind? Whether you need a sleek mobile app, want to

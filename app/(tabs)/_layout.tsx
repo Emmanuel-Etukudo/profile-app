@@ -1,10 +1,10 @@
 import React from "react";
 import Fontisto from "@expo/vector-icons/Fontisto";
-import { Link, Tabs } from "expo-router";
+import { Tabs } from "expo-router";
 import { Pressable } from "react-native";
 
 import Colors from "@/constants/Colors";
-import { useColorScheme } from "@/components/useColorScheme";
+import { useTheme } from "@/context/ThemeContext";
 import { useClientOnlyValue } from "@/components/useClientOnlyValue";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -16,15 +16,20 @@ function TabBarIcon(props: {
 }
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const { effectiveTheme, toggleTheme } = useTheme();
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        tabBarActiveTintColor: Colors[effectiveTheme].tint,
         // Disable the static render of the header on web
         // to prevent a hydration error in React Navigation v6.
         headerShown: useClientOnlyValue(false, true),
+        headerStyle: {
+          backgroundColor: Colors[effectiveTheme].background,
+        },
+        headerTitleAlign: "left",
+        headerShadowVisible: false,
       }}
     >
       <Tabs.Screen
@@ -33,18 +38,16 @@ export default function TabLayout() {
           title: "About",
           tabBarIcon: ({ color }) => <TabBarIcon name="person" color={color} />,
           headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <Fontisto
-                    name="day-sunny"
-                    size={25}
-                    color={Colors[colorScheme ?? "light"].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
+            <Pressable onPress={toggleTheme}>
+              {({ pressed }) => (
+                <Fontisto
+                  name={effectiveTheme === "dark" ? "day-sunny" : "night-clear"}
+                  size={25}
+                  color={Colors[effectiveTheme].text}
+                  style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                />
+              )}
+            </Pressable>
           ),
         }}
       />
