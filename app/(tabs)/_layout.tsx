@@ -56,6 +56,18 @@ export default function TabLayout() {
         options={{
           title: "Contact",
           tabBarIcon: ({ color }) => <TabBarIcon name="email" color={color} />,
+          headerRight: () => (
+            <Pressable onPress={toggleTheme}>
+              {({ pressed }) => (
+                <Fontisto
+                  name={effectiveTheme === "dark" ? "day-sunny" : "night-clear"}
+                  size={25}
+                  color={Colors[effectiveTheme].text}
+                  style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                />
+              )}
+            </Pressable>
+          ),
         }}
       />
     </Tabs>

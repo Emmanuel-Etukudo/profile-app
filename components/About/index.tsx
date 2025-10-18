@@ -2,16 +2,26 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import Subtitle from "./Subtitle";
+import { useTheme } from "@/context/ThemeContext";
+import Colors from "@/constants/Colors";
 
 const About = () => {
+  const { effectiveTheme } = useTheme();
+
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: Colors[effectiveTheme].background },
+      ]}
+    >
       <View
         style={{
           flex: 1,
           padding: 8,
         }}
       >
+        ß
         <Image
           source={require("@/assets/images/profile.png")}
           style={styles.image}

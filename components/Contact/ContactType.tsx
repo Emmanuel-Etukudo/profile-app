@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Fontisto, Ionicons } from "@expo/vector-icons";
+import { useTheme } from "@/context/ThemeContext";
+import Colors from "@/constants/Colors";
 
 interface ContactTypeProps {
   text: string;
@@ -9,13 +11,15 @@ interface ContactTypeProps {
 }
 
 const ContactType = ({ text, subtext, iconName }: ContactTypeProps) => {
+  const { effectiveTheme } = useTheme();
+
   return (
     <View
       style={{
         flexDirection: "row",
         justifyContent: "space-between",
         columnGap: 6,
-        backgroundColor: "white",
+        backgroundColor: effectiveTheme === "dark" ? "#2a2530" : "#f8f6fa",
         paddingHorizontal: 12,
         paddingVertical: 20,
         borderRadius: 8,
@@ -23,13 +27,31 @@ const ContactType = ({ text, subtext, iconName }: ContactTypeProps) => {
       }}
     >
       <View style={{ flexDirection: "row", columnGap: 6 }}>
-        {iconName && <Ionicons name={iconName} size={16} color="black" />}
+        {iconName && (
+          <Ionicons
+            name={iconName}
+            size={16}
+            color={Colors[effectiveTheme].text}
+          />
+        )}
         <View>
-          <Text style={styles.subTitle}>{text}</Text>
-          <Text style={styles.subTitle}>{subtext}</Text>
+          <Text
+            style={[styles.subTitle, { color: Colors[effectiveTheme].text }]}
+          >
+            {text}
+          </Text>
+          <Text
+            style={[styles.subTitle, { color: Colors[effectiveTheme].text }]}
+          >
+            {subtext}
+          </Text>
         </View>
       </View>
-      <Fontisto name="angle-right" size={16} color="black" />
+      <Fontisto
+        name="angle-right"
+        size={16}
+        color={Colors[effectiveTheme].text}
+      />
     </View>
   );
 };
@@ -40,6 +62,5 @@ const styles = StyleSheet.create({
   subTitle: {
     fontSize: 14,
     fontWeight: "normal",
-    color: "black",
   },
 });
