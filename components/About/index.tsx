@@ -21,9 +21,8 @@ const About = () => {
           padding: 8,
         }}
       >
-        ß
         <Image
-          source={require("@/assets/images/profile.png")}
+          source={require("@/assets/images/profile.jpg")}
           style={styles.image}
         />
       </View>
