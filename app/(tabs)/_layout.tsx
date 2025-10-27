@@ -28,6 +28,12 @@ export default function TabLayout() {
         headerStyle: {
           backgroundColor: Colors[effectiveTheme].background,
         },
+        headerTitleStyle: {
+          color: Colors[effectiveTheme].text,
+        },
+        tabBarStyle: {
+          backgroundColor: Colors[effectiveTheme].background,
+        },
         headerTitleAlign: "left",
         headerShadowVisible: false,
       }}
